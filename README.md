@@ -9,9 +9,9 @@ Extended<T> is my Entity
 DnisData is my type that will change for each use case.
 For example 
 
-@Override
+``@Override
 @PostMapping({"/save"})
-public ModelAndView saveEditedEntity(@ModelAttribute("entry") @Valid Extended<DnisData> entry, BindingResult bindingResult, Model model) {}
+public ModelAndView saveEditedEntity(@ModelAttribute("entry") @Valid Extended<DnisData> entry, BindingResult bindingResult, Model model) {}``
 
 So this "works" but the problem is that type erasure happens and the Object doesnt map at all it seems. 
 I get back java.lang.Object in place of ExtendedDnisData.
@@ -38,5 +38,5 @@ The way I have found around this is to send Extended<DnisData> and DnisData
 And submit both with the form. and recombine them in the save method before adding to the DB.
 Not elegant but works. (Not implemented in this project)
 
-@PostMapping({"/save"})
-public ModelAndView saveEditedEntity(@ModelAttribute("entry") @Valid Extended<DnisData> entry, (@ModelAttribute("customData") @Valid DnisData customData, BindingResult bindingResult, Model model) {}
+``@PostMapping({"/save"})
+public ModelAndView saveEditedEntity(@ModelAttribute("entry") @Valid Extended<DnisData> entry, (@ModelAttribute("customData") @Valid DnisData customData, BindingResult bindingResult, Model model) {}``
